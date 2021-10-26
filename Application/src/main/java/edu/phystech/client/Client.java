@@ -9,11 +9,12 @@ public record Client(
         List<Long> accountIds,
         String firstName,
         String secondName,
-        Address address,
-        PassportData passportData,
+        String address,
+        String passportData,
         boolean verified
 ) {
-    public Client(long clientId, String firstName, String secondName, Address address, PassportData passportData, boolean verified) {
+    public Client(long clientId, String firstName, String secondName, String address, String passportData, boolean verified) {
         this(clientId, null, firstName, secondName, address, passportData, verified);
     }
+
 }
