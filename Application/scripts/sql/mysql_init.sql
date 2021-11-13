@@ -7,5 +7,5 @@ create table bank.clients
     second_name   text,
     address       text,
     passport_data text,
-    verified      boolean not null
+    verified      boolean not null default false
 );

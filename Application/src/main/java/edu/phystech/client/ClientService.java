@@ -1,22 +1,20 @@
 package edu.phystech.client;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ClientService {
-    private final ClientDao clientDao;
+    private final ClientRepository clientDao;
 
-    public ClientService(ClientDao clientDao) {
+    public ClientService(ClientRepository clientDao) {
         this.clientDao = clientDao;
     }
 
     public Client addClient(Client newClient) {
-        long clientId = clientDao.addClient(newClient);
-        return clientDao.getClient(clientId);
+        return clientDao.save(newClient);
     }
 
     public Client getClient(long clientId) {
-        return clientDao.getClient(clientId);
+        return clientDao.findById(clientId).orElseThrow(() -> new RuntimeException("Client not found"));
     }
 }
