@@ -1,4 +1,8 @@
-# BanksOOP
-Course of Architecture1 (1C Deperture)
+# Course of Architecture-1 (1C Deperture)
+## BanksOOP
 
-UML-диаграммы классы и остальная документация находится в папке Documents
+**Documents** содержит UML-диаграммы классов и остальную документацию
+
+**Application** содержит реализацию проекта
+
+Команда: [Илья Максимов](https://github.com/IlyaMaximov) и [Пушин Даниил](https://github.com/staketd)
