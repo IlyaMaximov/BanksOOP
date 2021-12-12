@@ -27,9 +27,4 @@ public class DbConfiguration {
         dataSource.setDatabaseName(database);
         return dataSource;
     }
-
-    @Bean(name = "mysqlJdbcTemplate")
-    public MysqlJdbcTemplate jdbcTemplate(DataSource mysqlDataSource) {
-        return new MysqlJdbcTemplate(mysqlDataSource);
-    }
 }
