@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/client")
 public class ClientController {
     private final ClientService clientService;
 
@@ -17,20 +16,20 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/client/add", method = RequestMethod.POST)
     public ResponseWrapper<ClientWrapper> addClient(
             @RequestBody ClientWrapper form
     ) {
         return new ResponseWrapper<>(new ClientWrapper(clientService.addClient(form.client())));
     }
 
-    @RequestMapping(value = "/{clientId}")
+    @RequestMapping(value = "/client/{clientId}")
     public ResponseWrapper<ClientWrapper> getClient(
             @PathVariable long clientId
     ) {
         return new ResponseWrapper<>(new ClientWrapper(clientService.getClient(clientId)));
     }
 
-    private static record ClientWrapper(Client client) {
+    private record ClientWrapper(Client client) {
     }
 }
