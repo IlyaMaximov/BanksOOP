@@ -6,10 +6,11 @@ public abstract class InterestAccount extends BaseAccount {
 
     public InterestAccount(
             long ownerId,
+            long bankId,
             double balancePercentage,
             long accumulatedAmount
     ) {
-        super(ownerId);
+        super(ownerId, bankId);
         this.balancePercentage = balancePercentage;
         this.accumulatedAmount = accumulatedAmount;
     }

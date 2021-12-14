@@ -20,7 +20,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public abstract class BaseAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
+
+    private long bankId;
 
     private long ownerId;
 
@@ -29,8 +31,9 @@ public abstract class BaseAccount {
     public BaseAccount() {
     }
 
-    public BaseAccount(long ownerId) {
+    public BaseAccount(long ownerId, long bankId) {
         this.ownerId = ownerId;
+        this.bankId = bankId;
         currentAmount = 0;
     }
 
@@ -56,5 +59,13 @@ public abstract class BaseAccount {
 
     public void setOwnerId(long ownerId) {
         this.ownerId = ownerId;
+    }
+
+    public long getBankId() {
+        return bankId;
+    }
+
+    public void setBankId(long bankId) {
+        this.bankId = bankId;
     }
 }

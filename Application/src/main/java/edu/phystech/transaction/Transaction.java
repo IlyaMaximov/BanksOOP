@@ -18,15 +18,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     @JsonProperty(value = "creator_client_id")
-    private Long creatorClientId;
+    private long creatorClientId;
     @JsonProperty(value = "source_account_id")
-    private Long sourceAccountId;
+    private long sourceAccountId;
     @JsonProperty(value = "target_account_id")
-    private Long targetAccountId;
+    private long targetAccountId;
     @JsonProperty(value = "amount")
-    private Long amount;
+    private long amount;
     @JsonProperty(value = "currency")
     private Currency currency;
     @JsonProperty(value = "completion_timestamp")
