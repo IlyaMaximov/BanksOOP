@@ -3,7 +3,7 @@ package edu.phystech.transaction;
 import java.util.List;
 
 import edu.phystech.response.ResponseWrapper;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,12 +18,19 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    @RequestMapping(value = "/transactions/transfer", method = RequestMethod.POST)
+    @RequestMapping(value = "/bank/client/{clientId}/transaction/create", method = RequestMethod.POST)
     @ResponseBody
     public ResponseWrapper<Transaction> transfer(
-            @RequestBody Transaction transaction
+            @PathVariable long clientId,
+            @RequestParam(name = "source_account_id") long sourceAccountId,
+            @RequestParam(name = "target_account_id") long targetAccountId,
+            @RequestParam Currency currency,
+            @RequestParam long amount
     ) {
-        return new ResponseWrapper<>(transactionService.createTransaction(transaction));
+        return new ResponseWrapper<>(
+                transactionService.createTransaction(
+                        new Transaction(clientId, sourceAccountId, targetAccountId, amount, currency))
+        );
     }
 
     @RequestMapping(value = "/transactions/list", method = RequestMethod.GET)

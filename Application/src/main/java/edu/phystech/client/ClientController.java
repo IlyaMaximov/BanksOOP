@@ -1,7 +1,10 @@
 package edu.phystech.client;
 
+import java.util.List;
+
 import edu.phystech.response.ResponseWrapper;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,11 +28,26 @@ public class ClientController {
                 new ClientWrapper(clientService.addClient(new Client(bankId, firstName, secondName))));
     }
 
+    @RequestMapping(value = "/bank/client/{clientId}/edit", method = RequestMethod.PUT)
+    public ResponseWrapper<ClientWrapper> editClient(
+            @PathVariable long clientId,
+            @RequestBody Client client
+    ) {
+        return new ResponseWrapper<>(new ClientWrapper(clientService.changeClient(clientId, client)));
+    }
+
     @RequestMapping(value = "/bank/client/{clientId}")
     public ResponseWrapper<ClientWrapper> getClient(
             @PathVariable long clientId
     ) {
         return new ResponseWrapper<>(new ClientWrapper(clientService.getClient(clientId)));
+    }
+
+    @RequestMapping(value = "/bank/{bankId}/clients", method = RequestMethod.GET)
+    public ResponseWrapper<List<Client>> getBankClients(
+            @PathVariable long bankId
+    ) {
+      return new ResponseWrapper<>(clientService.getBankClients(bankId));
     }
 
     private record ClientWrapper(Client client) {

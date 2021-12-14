@@ -14,15 +14,15 @@ public class Bank {
     private long id;
     private double debitPercentage;
     private double creditCommission;
-    private long unverifiedAmountLimit;
+    private long unverifiedTransactionAmountLimit;
 
     public Bank() {
     }
 
-    public Bank(double debitPercentage, double creditCommission, long unverifiedAmountLimit) {
+    public Bank(double debitPercentage, double creditCommission, long unverifiedTransactionAmountLimit) {
         this.debitPercentage = debitPercentage;
         this.creditCommission = creditCommission;
-        this.unverifiedAmountLimit = unverifiedAmountLimit;
+        this.unverifiedTransactionAmountLimit = unverifiedTransactionAmountLimit;
     }
 
     public long getId() {
@@ -49,11 +49,11 @@ public class Bank {
         this.creditCommission = creditCommission;
     }
 
-    public long getUnverifiedAmountLimit() {
-        return unverifiedAmountLimit;
+    public long getUnverifiedTransactionAmountLimit() {
+        return unverifiedTransactionAmountLimit;
     }
 
-    public void setUnverifiedAmountLimit(long unverifiedAmountLimit) {
-        this.unverifiedAmountLimit = unverifiedAmountLimit;
+    public void setUnverifiedTransactionAmountLimit(long unverifiedAmountLimit) {
+        this.unverifiedTransactionAmountLimit = unverifiedAmountLimit;
     }
 }

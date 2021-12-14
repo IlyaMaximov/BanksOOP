@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -27,6 +28,9 @@ public abstract class BaseAccount {
     private long ownerId;
 
     private long currentAmount;
+
+    @Transient
+    protected AccountType type;
 
     public BaseAccount() {
     }
@@ -67,5 +71,13 @@ public abstract class BaseAccount {
 
     public void setBankId(long bankId) {
         this.bankId = bankId;
+    }
+
+    public AccountType getType() {
+        return type;
+    }
+
+    public void setType(AccountType type) {
+        this.type = type;
     }
 }

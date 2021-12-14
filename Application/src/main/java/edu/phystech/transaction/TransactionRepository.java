@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TransactionRepository extends CrudRepository<Transaction, Long> {
     List<Transaction> findAllByCreatorClientId(Long creatorClientId);
+    List<Transaction> findAllByStatus(TransactionStatus status);
 }

@@ -10,27 +10,42 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "transactions")
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+@JsonIgnoreProperties(value = {"id"}, allowGetters = true)
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @JsonProperty(value = "creator_client_id")
     private long creatorClientId;
-    @JsonProperty(value = "source_account_id")
+
     private long sourceAccountId;
-    @JsonProperty(value = "target_account_id")
     private long targetAccountId;
-    @JsonProperty(value = "amount")
     private long amount;
-    @JsonProperty(value = "currency")
+
+    private TransactionStatus status;
     private Currency currency;
-    @JsonProperty(value = "completion_timestamp")
     private LocalDateTime completionTimestamp;
+    private String message;
+
+    public Transaction() {
+    }
+
+    public Transaction(long creatorClientId,
+                       long sourceAccountId,
+                       long targetAccountId,
+                       long amount,
+                       Currency currency) {
+        this.creatorClientId = creatorClientId;
+        this.sourceAccountId = sourceAccountId;
+        this.targetAccountId = targetAccountId;
+        this.amount = amount;
+        this.currency = currency;
+        this.status = TransactionStatus.NEW;
+    }
 
     public Long getId() {
         return id;
@@ -119,4 +134,19 @@ public class Transaction {
                 "completionTimestamp=" + completionTimestamp + ']';
     }
 
+    public TransactionStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TransactionStatus status) {
+        this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }
