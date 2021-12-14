@@ -9,11 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "clients")
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(value = {"id", "bank_id", "verified"}, allowGetters = true)
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

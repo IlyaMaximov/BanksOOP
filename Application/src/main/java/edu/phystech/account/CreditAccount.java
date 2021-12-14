@@ -16,10 +16,12 @@ public class CreditAccount extends BaseAccount {
         super(ownerId, bankId);
         this.commission = commission;
         this.creditLimit = creditLimit;
+        this.type = AccountType.CREDIT;
     }
 
     public CreditAccount() {
         super();
+        this.type = AccountType.CREDIT;
     }
 
     public double getCommission() {

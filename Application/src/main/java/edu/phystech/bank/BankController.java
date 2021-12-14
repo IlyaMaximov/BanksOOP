@@ -1,7 +1,11 @@
 package edu.phystech.bank;
 
+import java.util.List;
+
+import edu.phystech.account.BaseAccount;
 import edu.phystech.response.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,5 +26,12 @@ public class BankController {
         return new ResponseWrapper<>(service.createBank(
                 new Bank(debitPercentage, creditCommission, unverifiedAmountLimit))
         );
+    }
+
+    @RequestMapping(value = "/bank/{bankId}/accounts", method = RequestMethod.GET)
+    public ResponseWrapper<List<BaseAccount>> getBankAccounts(
+            @PathVariable long bankId
+    ) {
+        return new ResponseWrapper<>(service.getBankAccounts(bankId));
     }
 }

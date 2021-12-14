@@ -13,13 +13,26 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public record AccountController(AccountService service) {
-    @RequestMapping(value = "/bank/{bankId}/accounts/deposit/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/bank/client/{clientId}/account/deposit/create", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseWrapper<BaseAccount> createDeposit(
-            @PathVariable long bankId,
-            @RequestParam(value = "owner_id") long ownerId,
+    public ResponseWrapper<DepositAccount> createDeposit(
+            @PathVariable long clientId,
             @RequestParam(value = "up_to_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate upToDate
     ) {
-        return new ResponseWrapper<>(service.createDepositAccount(ownerId, bankId, upToDate));
+        return new ResponseWrapper<>(service.createDepositAccount(clientId, upToDate));
+    }
+
+    @RequestMapping(value = "/bank/client/{clientId}/account/credit/create", method = RequestMethod.POST)
+    public ResponseWrapper<CreditAccount> createCredit(
+            @PathVariable long clientId
+    ) {
+        return new ResponseWrapper<>(service.createCreditAccount(clientId));
+    }
+
+    @RequestMapping(value = "/bank/client/{clientId}/account/credit/create", method = RequestMethod.POST)
+    public ResponseWrapper<DebitAccount> createDebit(
+            @PathVariable long clientId
+    ) {
+        return new ResponseWrapper<>(service.createDebitAccount(clientId));
     }
 }

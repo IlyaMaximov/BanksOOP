@@ -8,9 +8,11 @@ import javax.persistence.Entity;
 public class DebitAccount extends InterestAccount {
     public DebitAccount(long ownerId, long bankId, double balancePercentage, long accumulatedAmount) {
         super(ownerId, bankId, balancePercentage, accumulatedAmount);
+        this.type = AccountType.DEBIT;
     }
 
     public DebitAccount() {
         super();
+        this.type = AccountType.DEBIT;
     }
 }
