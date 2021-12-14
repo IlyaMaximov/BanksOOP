@@ -10,9 +10,10 @@ public class CreditAccount extends BaseAccount {
     private long creditLimit;
 
     public CreditAccount(long ownerId,
+                         long bankId,
                          double commission,
                          long creditLimit) {
-        super(ownerId);
+        super(ownerId, bankId);
         this.commission = commission;
         this.creditLimit = creditLimit;
     }

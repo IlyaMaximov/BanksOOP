@@ -11,8 +11,8 @@ import javax.persistence.Entity;
 public class DepositAccount extends InterestAccount {
     private LocalDate upToDate;
 
-    public DepositAccount(long ownerId, double balancePercentage, long accumulatedAmount, LocalDate upToDate) {
-        super(ownerId, balancePercentage, accumulatedAmount);
+    public DepositAccount(long ownerId, long bankId, double balancePercentage, long accumulatedAmount, LocalDate upToDate) {
+        super(ownerId, bankId, balancePercentage, accumulatedAmount);
         this.upToDate = upToDate;
     }
 

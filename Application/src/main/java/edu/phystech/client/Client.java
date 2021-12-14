@@ -9,12 +9,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 @Entity
 @Table(name = "clients")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private long bankId;
 
     @Transient
     private List<Long> accountIds;
@@ -25,6 +30,12 @@ public class Client {
     private boolean verified;
 
     public Client() {
+    }
+
+    public Client(long bankId, String firstName, String secondName) {
+        this.bankId = bankId;
+        this.firstName = firstName;
+        this.secondName = secondName;
     }
 
     public void setId(Long id) {
@@ -83,5 +94,13 @@ public class Client {
 
     public void setVerified(boolean verified) {
         this.verified = verified;
+    }
+
+    public long getBankId() {
+        return bankId;
+    }
+
+    public void setBankId(long bankId) {
+        this.bankId = bankId;
     }
 }
