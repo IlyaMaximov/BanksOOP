@@ -29,7 +29,7 @@ public record AccountController(AccountService service) {
         return new ResponseWrapper<>(service.createCreditAccount(clientId));
     }
 
-    @RequestMapping(value = "/bank/client/{clientId}/account/credit/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/bank/client/{clientId}/account/debit/create", method = RequestMethod.POST)
     public ResponseWrapper<DebitAccount> createDebit(
             @PathVariable long clientId
     ) {
