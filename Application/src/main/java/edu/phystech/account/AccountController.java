@@ -3,6 +3,7 @@ package edu.phystech.account;
 import java.time.LocalDate;
 
 import edu.phystech.response.ResponseWrapper;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@Tag(name = "account", description = "Account management")
 public record AccountController(AccountService service) {
     @RequestMapping(value = "/bank/client/{clientId}/account/deposit/create", method = RequestMethod.POST)
     @ResponseBody
