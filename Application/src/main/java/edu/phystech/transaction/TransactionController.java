@@ -37,7 +37,7 @@ public class TransactionController {
         );
     }
 
-    @RequestMapping(value = "/transactions/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/bank/transactions/list", method = RequestMethod.GET)
     @Operation(description = "lists all transactions made by user")
     @ResponseBody
     public ResponseWrapper<List<Transaction>> getAllTransactionsByCreatorId(
