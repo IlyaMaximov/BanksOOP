@@ -3,6 +3,7 @@ package edu.phystech.account;
 import java.time.LocalDate;
 
 import edu.phystech.response.ResponseWrapper;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Tag(name = "account", description = "Account management")
 public record AccountController(AccountService service) {
     @RequestMapping(value = "/bank/client/{clientId}/account/deposit/create", method = RequestMethod.POST)
+    @Operation(description = "Creates bank deposit account for client with {clientId} ")
     @ResponseBody
     public ResponseWrapper<DepositAccount> createDeposit(
             @PathVariable long clientId,
@@ -25,6 +27,7 @@ public record AccountController(AccountService service) {
     }
 
     @RequestMapping(value = "/bank/client/{clientId}/account/credit/create", method = RequestMethod.POST)
+    @Operation(description = "Creates bank credit account for client with {clientId} ")
     public ResponseWrapper<CreditAccount> createCredit(
             @PathVariable long clientId
     ) {
@@ -32,6 +35,7 @@ public record AccountController(AccountService service) {
     }
 
     @RequestMapping(value = "/bank/client/{clientId}/account/debit/create", method = RequestMethod.POST)
+    @Operation(description = "Creates bank debit account for client with {clientId} ")
     public ResponseWrapper<DebitAccount> createDebit(
             @PathVariable long clientId
     ) {

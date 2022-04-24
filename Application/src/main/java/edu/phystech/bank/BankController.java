@@ -4,6 +4,9 @@ import java.util.List;
 
 import edu.phystech.account.BaseAccount;
 import edu.phystech.response.ResponseWrapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +23,7 @@ public class BankController {
     private BankService service;
 
     @RequestMapping(value = "/bank/create", method = RequestMethod.POST)
+    @Operation(description = "Creates new bank")
     public ResponseWrapper<Bank> createBank(
             @RequestParam(value = "debit_percentage") double debitPercentage,
             @RequestParam(value = "credit_commission") double creditCommission,
@@ -31,6 +35,7 @@ public class BankController {
     }
 
     @RequestMapping(value = "/bank/{bankId}/accounts", method = RequestMethod.GET)
+    @Operation(description = "Lists all bank accounts")
     public ResponseWrapper<List<BaseAccount>> getBankAccounts(
             @PathVariable long bankId
     ) {

@@ -3,6 +3,7 @@ package edu.phystech.client;
 import java.util.List;
 
 import edu.phystech.response.ResponseWrapper;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/bank/{bankId}/client/add", method = RequestMethod.POST)
+    @Operation(description = "Creates a new client in bank with {bankId}")
     public ResponseWrapper<ClientWrapper> addClient(
             @PathVariable long bankId,
             @RequestParam("first_name") String firstName,
@@ -31,6 +33,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/bank/client/{clientId}/edit", method = RequestMethod.PUT)
+    @Operation(description = "Edits client with {clientID} in bank")
     public ResponseWrapper<ClientWrapper> editClient(
             @PathVariable long clientId,
             @RequestBody Client client
@@ -39,6 +42,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/bank/client/{clientId}", method = RequestMethod.GET)
+    @Operation(description = "Get client info")
     public ResponseWrapper<ClientWrapper> getClient(
             @PathVariable long clientId
     ) {
@@ -46,6 +50,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/bank/{bankId}/clients", method = RequestMethod.GET)
+    @Operation(description = "Get clients of bank with {bankId}")
     public ResponseWrapper<List<Client>> getBankClients(
             @PathVariable long bankId
     ) {

@@ -3,6 +3,7 @@ package edu.phystech.transaction;
 import java.util.List;
 
 import edu.phystech.response.ResponseWrapper;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "/bank/client/{clientId}/transaction/create", method = RequestMethod.POST)
+    @Operation(description = "Creates a new transaction authorized by {clientId}")
     @ResponseBody
     public ResponseWrapper<Transaction> transfer(
             @PathVariable long clientId,
@@ -36,6 +38,7 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "/transactions/list", method = RequestMethod.GET)
+    @Operation(description = "lists all transactions made by user")
     @ResponseBody
     public ResponseWrapper<List<Transaction>> getAllTransactionsByCreatorId(
             @RequestParam(value = "creator_client_id") long creatorClientId
