@@ -2,7 +2,7 @@
 
 Banks API
 - API version: 1.0
-  - Build date: 2022-04-24T08:53:26.331Z[GMT]
+  - Build date: 2022-04-24T10:52:54.557Z[GMT]
 
 Banks OOP project for 1C architecture course.
 
@@ -110,7 +110,7 @@ Class | Method | HTTP request | Description
 *ClientApi* | [**editClient**](docs/ClientApi.md#editClient) | **PUT** /bank/client/{clientId}/edit | 
 *ClientApi* | [**getBankClients**](docs/ClientApi.md#getBankClients) | **GET** /bank/{bankId}/clients | 
 *ClientApi* | [**getClient**](docs/ClientApi.md#getClient) | **GET** /bank/client/{clientId} | 
-*TransactionApi* | [**getAllTransactionsByCreatorId**](docs/TransactionApi.md#getAllTransactionsByCreatorId) | **GET** /transactions/list | 
+*TransactionApi* | [**getAllTransactionsByCreatorId**](docs/TransactionApi.md#getAllTransactionsByCreatorId) | **GET** /bank/transactions/list | 
 *TransactionApi* | [**transfer**](docs/TransactionApi.md#transfer) | **POST** /bank/client/{clientId}/transaction/create | 
 
 ## Documentation for Models

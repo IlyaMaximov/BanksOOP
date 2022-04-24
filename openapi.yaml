@@ -1,0 +1,373 @@
+openapi: 3.0.1
+info:
+  title: Banks API
+  description: Banks OOP project for 1C architecture course.
+  contact:
+    name: pushind
+    email: pushin.da@phystech.edu
+  version: "1.0"
+servers:
+- url: http://localhost:8080
+  description: Dev service
+tags:
+- name: client
+  description: Client management
+- name: bank
+  description: Bank management
+- name: account
+  description: Account management
+- name: transaction
+  description: Transaction Management
+paths:
+  /bank/client/{clientId}/edit:
+    put:
+      tags:
+      - client
+      description: "Edits client with {clientID} in bank"
+      operationId: editClient
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperClientWrapper'
+  /bank/{bankId}/client/add:
+    post:
+      tags:
+      - client
+      description: "Creates a new client in bank with {bankId}"
+      operationId: addClient
+      parameters:
+      - name: bankId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: first_name
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: second_name
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperClientWrapper'
+  /bank/create:
+    post:
+      tags:
+      - bank
+      description: Creates new bank
+      operationId: createBank
+      parameters:
+      - name: debit_percentage
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double
+      - name: credit_commission
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double
+      - name: unverified_amount_limit
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperBank'
+  /bank/client/{clientId}/transaction/create:
+    post:
+      tags:
+      - transaction
+      description: "Creates a new transaction authorized by {clientId}"
+      operationId: transfer
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: source_account_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: target_account_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: currency
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - RUB
+          - USD
+          - EUR
+      - name: amount
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperTransaction'
+  /bank/client/{clientId}/account/deposit/create:
+    post:
+      tags:
+      - account
+      description: "Creates bank deposit account for client with {clientId} "
+      operationId: createDeposit
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: up_to_date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperDepositAccount'
+  /bank/{bankId}/clients:
+    get:
+      tags:
+      - client
+      description: "Get clients of bank with {bankId}"
+      operationId: getBankClients
+      parameters:
+      - name: bankId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperListClient'
+  /bank/{bankId}/accounts:
+    get:
+      tags:
+      - bank
+      description: Lists all bank accounts
+      operationId: getBankAccounts
+      parameters:
+      - name: bankId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperListBaseAccount'
+  /bank/transactions/list:
+    get:
+      tags:
+      - transaction
+      description: lists all transactions made by user
+      operationId: getAllTransactionsByCreatorId
+      parameters:
+      - name: creator_client_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperListTransaction'
+  /bank/client/{clientId}:
+    get:
+      tags:
+      - client
+      description: Get client info
+      operationId: getClient
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperClientWrapper'
+components:
+  schemas:
+    Client:
+      type: object
+      properties:
+        bankId:
+          type: integer
+          format: int64
+        accountIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+        firstName:
+          type: string
+        secondName:
+          type: string
+        address:
+          type: string
+        passportData:
+          type: string
+    ResponseWrapperClientWrapper:
+      type: object
+      properties:
+        client:
+          $ref: '#/components/schemas/Client'
+    ResponseWrapperBank:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        debitPercentage:
+          type: number
+          format: double
+        creditCommission:
+          type: number
+          format: double
+        unverifiedTransactionAmountLimit:
+          type: integer
+          format: int64
+    ResponseWrapperTransaction:
+      type: object
+      properties:
+        creatorClientId:
+          type: integer
+          format: int64
+        sourceAccountId:
+          type: integer
+          format: int64
+        targetAccountId:
+          type: integer
+          format: int64
+        amount:
+          type: integer
+          format: int64
+        status:
+          type: string
+          enum:
+          - NEW
+          - PROCESSED
+          - TO_CANCEL
+          - CANCELLED
+          - FAILED
+        currency:
+          type: string
+          enum:
+          - RUB
+          - USD
+          - EUR
+        completionTimestamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+    ResponseWrapperDepositAccount:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        bankId:
+          type: integer
+          format: int64
+        ownerId:
+          type: integer
+          format: int64
+        currentAmount:
+          type: integer
+          format: int64
+        type:
+          type: string
+          enum:
+          - CREDIT
+          - DEBIT
+          - DEPOSIT
+        balancePercentage:
+          type: number
+          format: double
+        accumulatedAmount:
+          type: integer
+          format: int64
+        upToDate:
+          type: string
+          format: date
+    ResponseWrapperListClient:
+      type: object
+    ResponseWrapperListBaseAccount:
+      type: object
+    ResponseWrapperListTransaction:
+      type: object

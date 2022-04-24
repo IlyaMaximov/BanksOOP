@@ -7,6 +7,7 @@ import io.swagger.model.ResponseWrapperClientWrapper;
 import io.swagger.model.ResponseWrapperDepositAccount;
 import io.swagger.model.ResponseWrapperListBaseAccount;
 import io.swagger.model.ResponseWrapperListClient;
+import io.swagger.model.ResponseWrapperListTransaction;
 import io.swagger.model.ResponseWrapperTransaction;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,7 +40,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-04-24T08:53:36.820Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-04-24T10:52:51.878Z[GMT]")
 @RestController
 public class BankApiController implements BankApi {
 
@@ -109,6 +110,20 @@ public class BankApiController implements BankApi {
         }
 
         return new ResponseEntity<ResponseWrapperClientWrapper>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+    public ResponseEntity<ResponseWrapperListTransaction> getAllTransactionsByCreatorId(@NotNull @Parameter(in = ParameterIn.QUERY, description = "" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "creator_client_id", required = true) Long creatorClientId) {
+        String accept = request.getHeader("Accept");
+        if (accept != null && accept.contains("application/json")) {
+            try {
+                return new ResponseEntity<ResponseWrapperListTransaction>(objectMapper.readValue("{ }", ResponseWrapperListTransaction.class), HttpStatus.NOT_IMPLEMENTED);
+            } catch (IOException e) {
+                log.error("Couldn't serialize response for content type application/json", e);
+                return new ResponseEntity<ResponseWrapperListTransaction>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        return new ResponseEntity<ResponseWrapperListTransaction>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     public ResponseEntity<ResponseWrapperListBaseAccount> getBankAccounts(@Parameter(in = ParameterIn.PATH, description = "", required=true, schema=@Schema()) @PathVariable("bankId") Long bankId) {

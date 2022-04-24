@@ -4,7 +4,7 @@ All URIs are relative to *http://localhost:8080*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getAllTransactionsByCreatorId**](TransactionApi.md#getAllTransactionsByCreatorId) | **GET** /transactions/list | 
+[**getAllTransactionsByCreatorId**](TransactionApi.md#getAllTransactionsByCreatorId) | **GET** /bank/transactions/list | 
 [**transfer**](TransactionApi.md#transfer) | **POST** /bank/client/{clientId}/transaction/create | 
 
 <a name="getAllTransactionsByCreatorId"></a>
@@ -50,7 +50,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*
+ - **Accept**: application/json
 
 <a name="transfer"></a>
 # **transfer**
@@ -103,5 +103,5 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*
+ - **Accept**: application/json
 

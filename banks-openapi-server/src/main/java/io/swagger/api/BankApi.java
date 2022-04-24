@@ -12,6 +12,7 @@ import io.swagger.model.ResponseWrapperClientWrapper;
 import io.swagger.model.ResponseWrapperDepositAccount;
 import io.swagger.model.ResponseWrapperListBaseAccount;
 import io.swagger.model.ResponseWrapperListClient;
+import io.swagger.model.ResponseWrapperListTransaction;
 import io.swagger.model.ResponseWrapperTransaction;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -39,79 +40,88 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-04-24T08:53:36.820Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-04-24T10:52:51.878Z[GMT]")
 @Validated
 public interface BankApi {
 
     @Operation(summary = "", description = "Creates a new client in bank with {bankId}", tags={ "client" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "*/*", schema = @Schema(implementation = ResponseWrapperClientWrapper.class))) })
+        @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseWrapperClientWrapper.class))) })
     @RequestMapping(value = "/bank/{bankId}/client/add",
-        produces = { "*/*" }, 
+        produces = { "application/json" }, 
         method = RequestMethod.POST)
     ResponseEntity<ResponseWrapperClientWrapper> addClient(@Parameter(in = ParameterIn.PATH, description = "", required=true, schema=@Schema()) @PathVariable("bankId") Long bankId, @NotNull @Parameter(in = ParameterIn.QUERY, description = "" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "first_name", required = true) String firstName, @NotNull @Parameter(in = ParameterIn.QUERY, description = "" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "second_name", required = true) String secondName);
 
 
     @Operation(summary = "", description = "Creates new bank", tags={ "bank" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "*/*", schema = @Schema(implementation = ResponseWrapperBank.class))) })
+        @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseWrapperBank.class))) })
     @RequestMapping(value = "/bank/create",
-        produces = { "*/*" }, 
+        produces = { "application/json" }, 
         method = RequestMethod.POST)
     ResponseEntity<ResponseWrapperBank> createBank(@NotNull @Parameter(in = ParameterIn.QUERY, description = "" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "debit_percentage", required = true) Double debitPercentage, @NotNull @Parameter(in = ParameterIn.QUERY, description = "" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "credit_commission", required = true) Double creditCommission, @NotNull @Parameter(in = ParameterIn.QUERY, description = "" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "unverified_amount_limit", required = true) Long unverifiedAmountLimit);
 
 
     @Operation(summary = "", description = "Creates bank deposit account for client with {clientId} ", tags={ "account" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "*/*", schema = @Schema(implementation = ResponseWrapperDepositAccount.class))) })
+        @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseWrapperDepositAccount.class))) })
     @RequestMapping(value = "/bank/client/{clientId}/account/deposit/create",
-        produces = { "*/*" }, 
+        produces = { "application/json" }, 
         method = RequestMethod.POST)
     ResponseEntity<ResponseWrapperDepositAccount> createDeposit(@Parameter(in = ParameterIn.PATH, description = "", required=true, schema=@Schema()) @PathVariable("clientId") Long clientId, @NotNull @Parameter(in = ParameterIn.QUERY, description = "" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "up_to_date", required = true) LocalDate upToDate);
 
 
     @Operation(summary = "", description = "Edits client with {clientID} in bank", tags={ "client" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "*/*", schema = @Schema(implementation = ResponseWrapperClientWrapper.class))) })
+        @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseWrapperClientWrapper.class))) })
     @RequestMapping(value = "/bank/client/{clientId}/edit",
-        produces = { "*/*" }, 
+        produces = { "application/json" }, 
         consumes = { "application/json" }, 
         method = RequestMethod.PUT)
     ResponseEntity<ResponseWrapperClientWrapper> editClient(@Parameter(in = ParameterIn.PATH, description = "", required=true, schema=@Schema()) @PathVariable("clientId") Long clientId, @Parameter(in = ParameterIn.DEFAULT, description = "", required=true, schema=@Schema()) @Valid @RequestBody Client body);
 
 
+    @Operation(summary = "", description = "lists all transactions made by user", tags={ "transaction" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseWrapperListTransaction.class))) })
+    @RequestMapping(value = "/bank/transactions/list",
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
+    ResponseEntity<ResponseWrapperListTransaction> getAllTransactionsByCreatorId(@NotNull @Parameter(in = ParameterIn.QUERY, description = "" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "creator_client_id", required = true) Long creatorClientId);
+
+
     @Operation(summary = "", description = "Lists all bank accounts", tags={ "bank" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "*/*", schema = @Schema(implementation = ResponseWrapperListBaseAccount.class))) })
+        @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseWrapperListBaseAccount.class))) })
     @RequestMapping(value = "/bank/{bankId}/accounts",
-        produces = { "*/*" }, 
+        produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<ResponseWrapperListBaseAccount> getBankAccounts(@Parameter(in = ParameterIn.PATH, description = "", required=true, schema=@Schema()) @PathVariable("bankId") Long bankId);
 
 
     @Operation(summary = "", description = "Get clients of bank with {bankId}", tags={ "client" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "*/*", schema = @Schema(implementation = ResponseWrapperListClient.class))) })
+        @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseWrapperListClient.class))) })
     @RequestMapping(value = "/bank/{bankId}/clients",
-        produces = { "*/*" }, 
+        produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<ResponseWrapperListClient> getBankClients(@Parameter(in = ParameterIn.PATH, description = "", required=true, schema=@Schema()) @PathVariable("bankId") Long bankId);
 
 
     @Operation(summary = "", description = "Get client info", tags={ "client" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "*/*", schema = @Schema(implementation = ResponseWrapperClientWrapper.class))) })
+        @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseWrapperClientWrapper.class))) })
     @RequestMapping(value = "/bank/client/{clientId}",
-        produces = { "*/*" }, 
+        produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<ResponseWrapperClientWrapper> getClient(@Parameter(in = ParameterIn.PATH, description = "", required=true, schema=@Schema()) @PathVariable("clientId") Long clientId);
 
 
     @Operation(summary = "", description = "Creates a new transaction authorized by {clientId}", tags={ "transaction" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "*/*", schema = @Schema(implementation = ResponseWrapperTransaction.class))) })
+        @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseWrapperTransaction.class))) })
     @RequestMapping(value = "/bank/client/{clientId}/transaction/create",
-        produces = { "*/*" }, 
+        produces = { "application/json" }, 
         method = RequestMethod.POST)
     ResponseEntity<ResponseWrapperTransaction> transfer(@Parameter(in = ParameterIn.PATH, description = "", required=true, schema=@Schema()) @PathVariable("clientId") Long clientId, @NotNull @Parameter(in = ParameterIn.QUERY, description = "" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "source_account_id", required = true) Long sourceAccountId, @NotNull @Parameter(in = ParameterIn.QUERY, description = "" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "target_account_id", required = true) Long targetAccountId, @NotNull @Parameter(in = ParameterIn.QUERY, description = "" ,required=true,schema=@Schema(allowableValues={ "RUB", "USD", "EUR" }
 )) @Valid @RequestParam(value = "currency", required = true) String currency, @NotNull @Parameter(in = ParameterIn.QUERY, description = "" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "amount", required = true) Long amount);

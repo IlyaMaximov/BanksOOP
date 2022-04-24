@@ -26,7 +26,7 @@ import org.threeten.bp.OffsetDateTime;
  * ResponseWrapperTransaction
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2022-04-24T08:53:26.331Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2022-04-24T10:52:54.557Z[GMT]")
 public class ResponseWrapperTransaction {
   @SerializedName("creatorClientId")
   private Long creatorClientId = null;
