@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,7 +23,7 @@ public class BankController {
     @Autowired
     private BankService service;
 
-    @RequestMapping(value = "/bank/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/bank/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(description = "Creates new bank")
     public ResponseWrapper<Bank> createBank(
             @RequestParam(value = "debit_percentage") double debitPercentage,
@@ -34,7 +35,7 @@ public class BankController {
         );
     }
 
-    @RequestMapping(value = "/bank/{bankId}/accounts", method = RequestMethod.GET)
+    @RequestMapping(value = "/bank/{bankId}/accounts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(description = "Lists all bank accounts")
     public ResponseWrapper<List<BaseAccount>> getBankAccounts(
             @PathVariable long bankId

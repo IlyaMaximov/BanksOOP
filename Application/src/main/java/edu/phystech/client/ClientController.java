@@ -5,6 +5,7 @@ import java.util.List;
 import edu.phystech.response.ResponseWrapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    @RequestMapping(value = "/bank/{bankId}/client/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/bank/{bankId}/client/add", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(description = "Creates a new client in bank with {bankId}")
     public ResponseWrapper<ClientWrapper> addClient(
             @PathVariable long bankId,
@@ -32,7 +33,7 @@ public class ClientController {
                 new ClientWrapper(clientService.addClient(new Client(bankId, firstName, secondName))));
     }
 
-    @RequestMapping(value = "/bank/client/{clientId}/edit", method = RequestMethod.PUT)
+    @RequestMapping(value = "/bank/client/{clientId}/edit", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(description = "Edits client with {clientID} in bank")
     public ResponseWrapper<ClientWrapper> editClient(
             @PathVariable long clientId,
@@ -41,7 +42,7 @@ public class ClientController {
         return new ResponseWrapper<>(new ClientWrapper(clientService.changeClient(clientId, client)));
     }
 
-    @RequestMapping(value = "/bank/client/{clientId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/bank/client/{clientId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(description = "Get client info")
     public ResponseWrapper<ClientWrapper> getClient(
             @PathVariable long clientId
@@ -49,7 +50,7 @@ public class ClientController {
         return new ResponseWrapper<>(new ClientWrapper(clientService.getClient(clientId)));
     }
 
-    @RequestMapping(value = "/bank/{bankId}/clients", method = RequestMethod.GET)
+    @RequestMapping(value = "/bank/{bankId}/clients", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(description = "Get clients of bank with {bankId}")
     public ResponseWrapper<List<Client>> getBankClients(
             @PathVariable long bankId

@@ -5,6 +5,7 @@ import java.util.List;
 import edu.phystech.response.ResponseWrapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +22,7 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    @RequestMapping(value = "/bank/client/{clientId}/transaction/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/bank/client/{clientId}/transaction/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(description = "Creates a new transaction authorized by {clientId}")
     @ResponseBody
     public ResponseWrapper<Transaction> transfer(
@@ -37,7 +38,7 @@ public class TransactionController {
         );
     }
 
-    @RequestMapping(value = "/bank/transactions/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/bank/transactions/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(description = "lists all transactions made by user")
     @ResponseBody
     public ResponseWrapper<List<Transaction>> getAllTransactionsByCreatorId(

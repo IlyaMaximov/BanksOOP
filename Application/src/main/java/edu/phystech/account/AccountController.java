@@ -6,6 +6,7 @@ import edu.phystech.response.ResponseWrapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @Tag(name = "account", description = "Account management")
 public record AccountController(AccountService service) {
-    @RequestMapping(value = "/bank/client/{clientId}/account/deposit/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/bank/client/{clientId}/account/deposit/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(description = "Creates bank deposit account for client with {clientId} ")
     @ResponseBody
     public ResponseWrapper<DepositAccount> createDeposit(
@@ -26,7 +27,7 @@ public record AccountController(AccountService service) {
         return new ResponseWrapper<>(service.createDepositAccount(clientId, upToDate));
     }
 
-    @RequestMapping(value = "/bank/client/{clientId}/account/credit/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/bank/client/{clientId}/account/credit/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(description = "Creates bank credit account for client with {clientId} ")
     public ResponseWrapper<CreditAccount> createCredit(
             @PathVariable long clientId
@@ -34,7 +35,7 @@ public record AccountController(AccountService service) {
         return new ResponseWrapper<>(service.createCreditAccount(clientId));
     }
 
-    @RequestMapping(value = "/bank/client/{clientId}/account/debit/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/bank/client/{clientId}/account/debit/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(description = "Creates bank debit account for client with {clientId} ")
     public ResponseWrapper<DebitAccount> createDebit(
             @PathVariable long clientId
